@@ -22,3 +22,55 @@ This project provides a lightweight systemd daemon written in Python. It reads t
 ```bash
 apt update && apt install ipmitool lm-sensors -y
 sensors-detect --auto
+```
+
+# Installation & Deployment
+
+## 1. Fetch the script
+Create the target directory and the logic controller file:
+
+```bash
+mkdir -p /opt/scripts
+nano /opt/scripts/fan_control.py
+```
+
+Copy and paste the contents of the `fan_control.py` file from this repository into your editor.
+
+---
+
+## 2. Set permissions
+Secure the script so it can only be modified and executed by root:
+
+```bash
+chmod 744 /opt/scripts/fan_control.py
+```
+
+---
+
+## 3. Create the Systemd Service
+To ensure the script runs in the background and starts automatically on boot:
+
+```bash
+nano /etc/systemd/system/dell-fans.service
+```
+
+Copy and paste the contents of the `dell-fans.service` file from this repository.
+
+---
+
+## 4. Enable and Start the Daemon
+
+```bash
+systemctl daemon-reload
+systemctl enable dell-fans.service
+systemctl start dell-fans.service
+systemctl status dell-fans.service
+```
+
+---
+
+## Disclaimer
+
+This script interacts directly with your server's hardware controller. Use it at your own risk.  
+The author is not responsible for any hardware damage, overheating, or voided warranties.  
+Always monitor your core temperatures carefully during the initial deployment.
