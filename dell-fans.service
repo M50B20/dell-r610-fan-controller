@@ -1,0 +1,12 @@
+[Unit]
+Description=Dell R610 Custom Fan Control
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/scripts/fan_control.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
